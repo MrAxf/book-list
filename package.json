@@ -6,9 +6,11 @@
   },
   "private": true,
   "scripts": {
+    "prepare": "panda codegen --silent",
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "vite build -c adapters/static/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
@@ -16,23 +18,34 @@
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
+    "prebuild.pandacss": "panda codegen --silent",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
+    "test.unit": "vitest",
+    "test.unit.ui": "vitest --ui",
     "qwik": "qwik"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.2.6",
     "@builder.io/qwik-city": "^1.2.6",
+    "@builder.io/vite-plugin-macro": "~0.0.7",
+    "@pandacss/dev": "^0.4.0",
     "@types/eslint": "8.40.2",
     "@types/node": "^20.4.0",
     "@typescript-eslint/eslint-plugin": "5.61.0",
     "@typescript-eslint/parser": "5.61.0",
+    "@vitest/ui": "^0.32.2",
     "eslint": "8.44.0",
     "eslint-plugin-qwik": "^1.2.6",
     "prettier": "2.8.8",
     "typescript": "5.1.6",
     "undici": "5.22.1",
     "vite": "4.4.0",
-    "vite-tsconfig-paths": "4.2.0"
+    "vite-tsconfig-paths": "4.2.0",
+    "vitest": "^0.32.2"
+  },
+  "dependencies": {
+    "@fontsource-variable/open-sans": "^5.0.6",
+    "@unpic/qwik": "^0.0.23"
   }
 }
