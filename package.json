@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@fontsource-variable/open-sans": "^5.0.6",
-    "@unpic/qwik": "^0.0.23"
+    "@unpic/qwik": "^0.0.23",
+    "minisearch": "^6.1.0"
   }
 }
