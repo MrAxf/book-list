@@ -1,7 +1,13 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { Header } from "~/components/header";
+import { css } from "~/styled-system/css";
 import { VStack } from "~/styled-system/jsx";
+
+const mainCss = css({
+  width: "full",
+  p: "10",
+})
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -18,7 +24,7 @@ export default component$(() => {
   return (
     <VStack alignItems="start">
       <Header />
-      <main>
+      <main class={mainCss}>
         <Slot />
       </main>
     </VStack>

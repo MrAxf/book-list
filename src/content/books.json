@@ -2,6 +2,25 @@
     "library": [
         {
             "book": {
+                "title": "El camino de los reyes",
+                "pages": 1200,
+                "genre": "Fantasía",
+                "cover": "https://m.media-amazon.com/images/P/B014R3ODUI.01._SCLZZZZZZZ_SX500_.jpg",
+                "synopsis": "En Roshar, un mundo de piedra y tormentas, extrañas tempestades de increíble potencia barren el rocoso territorio de tal manera que han dado forma a una nueva civilización escondida. Han pasado siglos desde la caída de las diez órdenes consagradas conocidas como los Caballeros Radiantes, pero sus espadas y armaduras aún permanecen.",
+                "year": 2015,
+                "ISBN": "978-8466657662",
+                "author": {
+                    "name": "Brandon Sanderson",
+                    "otherBooks": [
+                        "Nacidos de la bruma. El imperio final",
+                        "El aliento de los dioses",
+                        "Elantris"
+                    ]
+                }
+            }
+        },
+        {
+            "book": {
                 "title": "El Señor de los Anillos",
                 "pages": 1200,
                 "genre": "Fantasía",

@@ -1,5 +1,5 @@
 import booksData from "~/content/books.json";
-import type { Book, BooksFilter } from "~/types/books";
+import type { Book, BooksFilter, BooksInMyList } from "~/types/books";
 import MiniSearch from "minisearch";
 
 let books: Book[] = [];
@@ -26,7 +26,7 @@ export function getBooks() {
   return books;
 }
 
-export function filterBooks(filter: BooksFilter, myBookList: string[]) {
+export function filterBooks(filter: BooksFilter, myBookList: BooksInMyList) {
   if (books.length === 0) getBooks();
 
   const searchedBooks = filter.searchText
@@ -35,16 +35,31 @@ export function filterBooks(filter: BooksFilter, myBookList: string[]) {
         .map((item) => books.find((book) => book.ISBN === item.id)) as Book[])
     : books;
 
-  return searchedBooks.filter(
+  const filteredBooks = searchedBooks.filter(
     (item) =>
-      (!filter.isInMyList || filterBookInMyList(item, new Set(myBookList))) &&
-      (!filter.genre || filterGenre(item, filter.genre)) &&
+      (!filter.isInMyList || filterBookInMyList(item, myBookList)) &&
+      (!filter.genre ||
+        filter.genre === "none" ||
+        filterGenre(item, filter.genre)) &&
       (!filter.minPages || filterPages(item, filter.minPages))
   );
+
+  if(filter.priorityOrder === undefined) return filteredBooks
+
+  const orderedBooks = filteredBooks.sort(
+    (item1, item2) => 
+      orderPriority(
+        myBookList[item1.ISBN],
+        myBookList[item2.ISBN],
+        filter.priorityOrder as boolean
+      )
+  );
+
+  return orderedBooks;
 }
 
-function filterBookInMyList(book: Book, myList: Set<string>) {
-  return myList.has(book.ISBN);
+function filterBookInMyList(book: Book, myList: BooksInMyList) {
+  return Boolean(myList[book.ISBN]);
 }
 
 function filterGenre(book: Book, genre: string) {
@@ -53,4 +68,12 @@ function filterGenre(book: Book, genre: string) {
 
 function filterPages(book: Book, minPages: number) {
   return book.pages >= minPages;
+}
+
+function orderPriority(
+  item1: number | undefined,
+  item2: number | undefined,
+  priority: boolean
+) {
+  return ((item1 || 0) - (item2 || 0)) * (priority ? -1 : 1);
 }

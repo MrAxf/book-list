@@ -9,16 +9,15 @@ import {
   useContextProvider,
   useSignal,
   useStore,
-  useVisibleTask$,
 } from "@builder.io/qwik";
 import useBooksInList from "~/hooks/useBooksInList";
 import { filterBooks, getBooks } from "~/services/booksService";
-import type { Book, BooksFilter } from "~/types/books";
+import type { Book, BooksFilter, BooksInMyList } from "~/types/books";
 
 interface BookContextType {
   books: Readonly<Signal<Book[]>>;
-  booksInMyList: Signal<string[]>;
-  genres: string[]
+  booksInMyList: Signal<BooksInMyList>;
+  genres: string[];
 }
 
 export const BooksContenxt = createContextId<BookContextType>("books-constext");
@@ -33,15 +32,10 @@ export const BooksProvider = component$(() => {
     }, new Set<string>())
   );
 
-  useVisibleTask$(() => {
-    const booksInMyListLS = localStorage.getItem("books-in-my-list");
-    booksInMyList.value = booksInMyListLS ? JSON.parse(booksInMyListLS) : [];
-  });
-
   useContextProvider(BooksContenxt, {
     books,
     booksInMyList,
-    genres
+    genres,
   });
   return (
     <>
@@ -52,7 +46,11 @@ export const BooksProvider = component$(() => {
 
 export function useBooks(initialFilters: BooksFilter) {
   const { booksInMyList, genres } = useContext(BooksContenxt);
-  const filters = useStore<BooksFilter>(initialFilters);
+  const filters = useStore<BooksFilter>({
+    genre: "none",
+    minPages: 0,
+    ...initialFilters,
+  });
   const filteredBooks = useComputed$(() =>
     filterBooks(filters, booksInMyList.value)
   );
@@ -60,41 +58,44 @@ export function useBooks(initialFilters: BooksFilter) {
   return {
     books: filteredBooks,
     filters,
-    genres
+    genres,
   };
 }
 
 export function useBook(book: Book) {
   const { booksInMyList } = useContext(BooksContenxt);
 
-  const isBookInMyList = useComputed$(() =>
-    booksInMyList.value.includes(book.ISBN)
+  const readPriority = useComputed$(() => booksInMyList.value[book.ISBN]);
+
+  const isBookInMyList = useComputed$(() => {
+    return Boolean(booksInMyList.value[book.ISBN])
+  }
   );
 
   const addBookToMyList = $(() => {
-    booksInMyList.value = [...booksInMyList.value, book.ISBN];
-    localStorage.setItem(
-      "books-in-my-list",
-      JSON.stringify(booksInMyList.value)
-    );
+    booksInMyList.value = { ...booksInMyList.value, [book.ISBN]: 2 };
   });
 
   const deleteBookFromMyList = $(() => {
-    booksInMyList.value = booksInMyList.value.filter(
-      (item) => item !== book.ISBN
-    );
-    localStorage.setItem(
-      "books-in-my-list",
-      JSON.stringify(booksInMyList.value)
-    );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [book.ISBN]: removeIdtem, ...rest } = booksInMyList.value;
+    booksInMyList.value = rest;
   });
 
   const toogleFromMyList = $(() => {
     if (!isBookInMyList.value) addBookToMyList();
     else deleteBookFromMyList();
   });
+
+  const setReadPriority = $((value: 1 | 2 | 3) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (isBookInMyList.value)
+      booksInMyList.value = { ...booksInMyList.value, [book.ISBN]: value };
+  });
   return {
     isBookInMyList,
     toogleFromMyList,
+    readPriority,
+    setReadPriority,
   };
 }

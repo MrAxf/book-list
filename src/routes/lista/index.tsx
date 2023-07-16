@@ -5,7 +5,13 @@ import { BooksProvider } from "~/components/books/books-provider";
 export default component$(() => {
   return (
     <BooksProvider>
-      <BookList isInMyList={true} />
+      <BookList
+        initialFilters={{
+          isInMyList: true,
+          priorityOrder: true,
+        }}
+        showPriorityOrder={true}
+      />
     </BooksProvider>
   );
 });

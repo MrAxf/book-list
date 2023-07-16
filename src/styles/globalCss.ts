@@ -15,7 +15,7 @@ export default defineGlobalStyles({
     overflowY: "auto",
     fontFamily: "opensans",
     fontSize: "16px",
-    lineHeight: "1.2em",
+    lineHeight: "normal",
     backgroundColor: "base-100",
     color: "base-content",
     minH: "screen",

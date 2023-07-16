@@ -17,4 +17,7 @@ export interface BooksFilter {
     genre?: string
     minPages?: number
     searchText?: string
+    priorityOrder?: boolean
 }
+
+export type BooksInMyList = Record<string, 1 | 2 | 3>
