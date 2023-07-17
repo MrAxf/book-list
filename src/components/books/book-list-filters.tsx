@@ -1,5 +1,5 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
-import { HStack, VStack, styled } from "~/styled-system/jsx";
+import { HStack, VStack, Wrap, styled } from "~/styled-system/jsx";
 import { SearchInput } from "../forms/search-input";
 import SelectInput from "../forms/select-input";
 import type { BooksFilter } from "~/types/books";
@@ -29,8 +29,8 @@ export const BookListFilters = component$(
       cleanup(() => clearTimeout(debounced));
     });
     return (
-      <HStack w="full" gap="10" py="5">
-        <HStack flexGrow="1" maxW="1/2">
+      <Wrap w="full" gap="10" pb="5">
+        <HStack flexGrow="1" w="full" sm={{ w: "auto" }}>
           <SearchInput value={searchText} />
         </HStack>
         <HStack>
@@ -96,7 +96,7 @@ export const BookListFilters = component$(
             />
           </Button>
         )}
-      </HStack>
+      </Wrap>
     );
   }
 );

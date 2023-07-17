@@ -1,13 +1,24 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { BottomNavigation } from "~/components/bottom-navigation";
 import { Header } from "~/components/header";
 import { css } from "~/styled-system/css";
 import { VStack } from "~/styled-system/jsx";
 
 const mainCss = css({
   width: "full",
-  p: "10",
-})
+  p: "5",
+  my: "70px",
+  sm: {
+    p: "7",
+  },
+  md: {
+    mb: "0",
+  },
+  lg: {
+    p: "10",
+  },
+});
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -22,11 +33,12 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 export default component$(() => {
   return (
-    <VStack alignItems="start">
+    <VStack alignItems="start" gap="0" position="relative">
       <Header />
       <main class={mainCss}>
         <Slot />
       </main>
+      <BottomNavigation />
     </VStack>
   );
 });

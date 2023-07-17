@@ -1,49 +1,40 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, useLocation } from "@builder.io/qwik-city";
 import { css, cx } from "~/styled-system/css";
-import { hstack } from "~/styled-system/patterns";
 
-const headerCss = cx(
-  hstack({
-    alignItems: "stretch",
-  }),
+const bottomNavigationCss = cx(
   css({
     width: "full",
-    position: "fixed",
-    top: "0",
-    zIndex: "1",
     bg: "neutral",
-    px: "5",
     shadow: "xl",
+    display: "flex",
+    position: "fixed",
+    bottom: "0",
+    md: {
+      display: "none",
+    },
   })
 );
 
-const headerTitleCss = css({
-  fontSize: "xl",
-  fontWeight: "bold",
-  py: "5",
-  mr: "5",
-});
-
-const headerLinksCss = cx(
+const bottomNavigationLinksCss = cx(
   css({
     fontSize: "lg",
-    px: "5",
-    height: "auto",
-    display: "none",
-    md: {
-      display: "flex",
-    },
+    w: "full",
+    h: "auto",
     gap: "0",
+    display: "flex",
     alignItems: "stretch",
     "& li": {
+      flexGrow: "1",
       display: "flex",
       alignItems: "stretch",
       height: "auto",
       "& a": {
-        height: "auto",
+        w: "full",
+        h: "auto",
         px: "3",
         py: "5",
+        textAlign: "center",
         transition: "all",
         transitionDuration: "fast",
         _hover: {
@@ -60,13 +51,12 @@ const activeLinkCss = css({
   borderBottomWidth: "medium",
 });
 
-export const Header = component$(() => {
+export const BottomNavigation = component$(() => {
   const { url } = useLocation();
 
   return (
-    <nav class={headerCss}>
-      <h1 class={headerTitleCss}>My Book List</h1>
-      <ul class={headerLinksCss}>
+    <nav class={bottomNavigationCss}>
+      <ul class={bottomNavigationLinksCss}>
         <li>
           <Link class={{ [activeLinkCss]: url.pathname === "/" }} href="/">
             Libros

@@ -1,6 +1,6 @@
 import { $, component$ } from "@builder.io/qwik";
 import { Image } from "@unpic/qwik";
-import { HStack, VStack, styled } from "~/styled-system/jsx";
+import { HStack, Stack, VStack, styled } from "~/styled-system/jsx";
 import cutString from "~/utils/cutString";
 import { useBook } from "./books-provider";
 import type { Book } from "~/types/books";
@@ -15,16 +15,25 @@ interface BookListItemProps {
 const imageCss = css({
   objectFit: "cover",
   borderRadius: "lg",
-  height: "full",
+  w: "33%",
+  h: "full",
+  flexShrink: "1",
   transitionProperty: "all",
   transitionDuration: "fast",
   transitionTimingFunction: "ease-in-out",
   filter: "auto",
+  sm: {
+    w: "225px",
+    h: "full"
+  }
 });
 
 const titleCss = css({
-  fontSize: "2xl",
+  fontSize: "xl",
   fontWeight: "bold",
+  sm: {
+    fontSize: "2xl"
+  }
 });
 
 const itemCss = css({
@@ -32,6 +41,8 @@ const itemCss = css({
   transitionProperty: "all",
   transitionDuration: "fast",
   transitionTimingFunction: "ease-in-out",
+  flexDirection: "row",
+  alignItems: "start",
   _hover: {
     bg: "neutral-focus",
     "& img": {
@@ -45,11 +56,11 @@ export const BookListItem = component$<BookListItemProps>((props) => {
     useBook(props.book);
   const cutStringWithDots = $(cutString);
   return (
-    <HStack
-      gap="10"
+    <Stack
+      gap="5"
       bg="neutral"
       borderRadius="xl"
-      p="5"
+      p="4"
       position="relative"
       class={itemCss}
     >
@@ -60,17 +71,11 @@ export const BookListItem = component$<BookListItemProps>((props) => {
         alt="Portada del libro"
         class={imageCss}
       />
-      <VStack flexGrow="1" gap="10">
-        <h3 class={titleCss}>{props.book.title}</h3>
-        <p>{cutStringWithDots(props.book.synopsis, 100)}</p>
-      </VStack>
+      <VStack flexGrow="1" gap="5" alignItems="start">
       <HStack
-        position="absolute"
-        top="0"
-        right="0"
-        p="5"
-        gap="10"
-        w="1/2"
+        gap="5"
+        w="full"
+        minH="68px"
         justifyContent="end"
         alignItems="start"
       >
@@ -104,6 +109,15 @@ export const BookListItem = component$<BookListItemProps>((props) => {
           }
         />
       </HStack>
-    </HStack>
+        <h3 class={titleCss}>{props.book.title}</h3>
+        <styled.p
+          textAlign="justify"
+          display="none"
+          sm={{ display: "inline-block" }}
+        >
+          {cutStringWithDots(props.book.synopsis, 200)}
+        </styled.p>
+      </VStack>
+    </Stack>
   );
 });

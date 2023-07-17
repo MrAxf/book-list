@@ -12,23 +12,33 @@ interface BookListProps {
 }
 
 const listGridCss = css({
+  "--ideal-width": "20rem",
   w: "full",
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(35rem, 1fr))",
+  gridTemplateColumns: "repeat(auto-fill, minmax(var(--ideal-width), 1fr))",
   gap: "10",
+  sm: {
+    "--ideal-width": "35rem",
+  },
 });
 
-export const BookList = component$<BookListProps>(({ initialFilters = {}, showPriorityOrder = false }) => {
-  const { books, filters, genres } = useBooks(initialFilters);
+export const BookList = component$<BookListProps>(
+  ({ initialFilters = {}, showPriorityOrder = false }) => {
+    const { books, filters, genres } = useBooks(initialFilters);
 
-  return (
-    <VStack>
-      <BookListFilters filters={filters} genres={genres} showPriorityOrder={showPriorityOrder} />
-      <div class={listGridCss}>
-        {books.value.map((item) => (
-          <BookListItem key={item.ISBN} book={item} />
-        ))}
-      </div>
-    </VStack>
-  );
-});
+    return (
+      <VStack>
+        <BookListFilters
+          filters={filters}
+          genres={genres}
+          showPriorityOrder={showPriorityOrder}
+        />
+        <div class={listGridCss}>
+          {books.value.map((item) => (
+            <BookListItem key={item.ISBN} book={item} />
+          ))}
+        </div>
+      </VStack>
+    );
+  }
+);
