@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { VStack } from "~/styled-system/jsx";
 import { BookListItem } from "./book-list-item";
-import { useBooks } from "./books-provider";
 import { css } from "~/styled-system/css";
 import { BookListFilters } from "./book-list-filters";
 import type { BooksFilter } from "~/types/books";
+import useBooks from "~/hooks/useBooks";
 
 interface BookListProps {
   initialFilters?: BooksFilter;

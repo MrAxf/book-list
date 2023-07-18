@@ -8,6 +8,7 @@ import { RouterHead } from "./components/router-head/router-head";
 
 import '@fontsource-variable/open-sans';
 import "./global.css";
+import { BooksInMyListProvider } from "./components/books/books-in-my-list-provider";
 
 export default component$(() => {
   /**
@@ -26,7 +27,9 @@ export default component$(() => {
         <ServiceWorkerRegister />
       </head>
       <body lang="es">
-        <RouterOutlet />
+        <BooksInMyListProvider>
+          <RouterOutlet />
+        </BooksInMyListProvider>
       </body>
     </QwikCityProvider>
   );

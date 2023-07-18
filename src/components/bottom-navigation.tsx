@@ -8,7 +8,7 @@ const bottomNavigationCss = cx(
     bg: "neutral",
     shadow: "xl",
     display: "flex",
-    position: "fixed",
+    position: "sticky",
     bottom: "0",
     md: {
       display: "none",

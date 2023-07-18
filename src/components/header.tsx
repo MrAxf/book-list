@@ -9,7 +9,7 @@ const headerCss = cx(
   }),
   css({
     width: "full",
-    position: "fixed",
+    position: "sticky",
     top: "0",
     zIndex: "1",
     bg: "neutral",

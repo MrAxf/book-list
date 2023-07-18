@@ -3,6 +3,7 @@ import type { Book, BooksFilter, BooksInMyList } from "~/types/books";
 import MiniSearch from "minisearch";
 
 let books: Book[] = [];
+let genres: string[] = [];
 const minisearch = new MiniSearch({
   fields: ["title", "genre", "synopsis", "year", "ISBN", "author.name"],
   idField: "ISBN",
@@ -26,6 +27,19 @@ export function getBooks() {
   return books;
 }
 
+export function getGenres() {
+  const books = getBooks();
+  if (genres.length === 0) {
+    genres = Array.from(
+      books.reduce((acc: Set<string>, item) => {
+        acc.add(item.genre);
+        return acc;
+      }, new Set<string>())
+    );
+  }
+  return genres;
+}
+
 export function filterBooks(filter: BooksFilter, myBookList: BooksInMyList) {
   if (books.length === 0) getBooks();
 
@@ -44,15 +58,14 @@ export function filterBooks(filter: BooksFilter, myBookList: BooksInMyList) {
       (!filter.minPages || filterPages(item, filter.minPages))
   );
 
-  if(filter.priorityOrder === undefined) return filteredBooks
+  if (filter.priorityOrder === undefined) return filteredBooks;
 
-  const orderedBooks = filteredBooks.sort(
-    (item1, item2) => 
-      orderPriority(
-        myBookList[item1.ISBN],
-        myBookList[item2.ISBN],
-        filter.priorityOrder as boolean
-      )
+  const orderedBooks = filteredBooks.sort((item1, item2) =>
+    orderPriority(
+      myBookList[item1.ISBN],
+      myBookList[item2.ISBN],
+      filter.priorityOrder as boolean
+    )
   );
 
   return orderedBooks;

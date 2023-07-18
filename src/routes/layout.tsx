@@ -8,12 +8,8 @@ import { VStack } from "~/styled-system/jsx";
 const mainCss = css({
   width: "full",
   p: "5",
-  my: "70px",
   sm: {
     p: "7",
-  },
-  md: {
-    mb: "0",
   },
   lg: {
     p: "10",
