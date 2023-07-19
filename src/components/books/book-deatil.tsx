@@ -26,7 +26,7 @@ export const BookDeatil = component$(({ book }: BookDeatilProps) => {
         alt="Portada del libro"
         class={bookCoverCss}
         style={{
-          viewTransitionName: "cover",
+          viewTransitionName: `cover-${book.ISBN}`,
         }}
       />
       <VStack alignItems="start" gap="4" flexGrow="1">
@@ -36,14 +36,14 @@ export const BookDeatil = component$(({ book }: BookDeatilProps) => {
           onInput={onFavIndicatorInput}
           onFavButtonClick={toogleFromMyList}
           style={{
-            viewTransitionName: "book-fav-indicator",
+            viewTransitionName: `book-fav-indicator-${book.ISBN}`,
           }}
         />
         <VStack alignItems="start" gap="0">
           <h3
             class={bookTitleCss}
             style={{
-              viewTransitionName: "title",
+              viewTransitionName: `title-${book.ISBN}`,
             }}
           >
             {book.title}

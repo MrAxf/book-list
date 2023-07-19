@@ -42,14 +42,8 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
   const { isBookInMyList, toogleFromMyList, readPriority, setReadPriority } =
     useBook(book);
 
-  const active = useSignal(false);
 
   const cutStringWithDots = $(cutString);
-
-  useVisibleTask$(({ track }) => {
-    track(() => active.value);
-    if (active.value) nav(`/libro/${book.ISBN}`);
-  });
 
   const onFavIndicatorInput = $((el: HTMLSelectElement) => {
     setReadPriority(Number(el.value) as 1 | 2 | 3);
@@ -64,7 +58,7 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
       alignItems="start"
       class={itemCss}
       onClick$={() => {
-        active.value = true;
+        nav(`/libro/${book.ISBN}`);
       }}
     >
       <Image
@@ -74,7 +68,7 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
         alt="Portada del libro"
         class={imageCss}
         style={{
-          viewTransitionName: active.value ? "cover" : undefined,
+          viewTransitionName: `cover-${book.ISBN}`,
         }}
       />
       <VStack flexGrow="1" gap="5" alignItems="start">
@@ -84,13 +78,13 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
           onInput={onFavIndicatorInput}
           onFavButtonClick={toogleFromMyList}
           style={{
-            viewTransitionName: active.value ? "book-fav-indicator" : undefined,
+            viewTransitionName: `book-fav-indicator-${book.ISBN}`,
           }}
         />
         <h3
           class={bookTitleCss}
           style={{
-            viewTransitionName: active.value ? "title" : undefined,
+            viewTransitionName: `title-${book.ISBN}`,
           }}
         >
           {book.title}
