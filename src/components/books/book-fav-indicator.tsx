@@ -38,7 +38,9 @@ export const BookFavIndicator = component$(
                 onInput(el);
               }}
               preventdefault:click
-              onClick$={(ev) => { ev.stopPropagation() }}
+              onClick$={(ev) => {
+                ev.stopPropagation();
+              }}
               w="full"
             >
               <option value={3} selected>
