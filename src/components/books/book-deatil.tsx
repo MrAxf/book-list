@@ -11,7 +11,7 @@ interface BookDeatilProps {
 }
 
 export const BookDeatil = component$(({ book }: BookDeatilProps) => {
-  const { isBookInMyList, readPriority, setReadPriority, toogleFromMyList } =
+  const { isreadList, readPriority, setReadPriority, toogleFromMyList } =
     useBook(book);
 
   const onFavIndicatorInput = $((el: HTMLSelectElement) => {
@@ -31,7 +31,7 @@ export const BookDeatil = component$(({ book }: BookDeatilProps) => {
       />
       <VStack alignItems="start" gap="4" flexGrow="1">
         <BookFavIndicator
-          isBookInMyList={isBookInMyList}
+          isreadList={isreadList}
           readPriority={readPriority}
           onInput={onFavIndicatorInput}
           onFavButtonClick={toogleFromMyList}

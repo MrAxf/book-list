@@ -39,7 +39,7 @@ const itemCss = css({
 export const BookListItem = component$(({ book }: BookListItemProps) => {
   const nav = useNavigate();
 
-  const { isBookInMyList, toogleFromMyList, readPriority, setReadPriority } =
+  const { isreadList, toogleFromMyList, readPriority, setReadPriority } =
     useBook(book);
 
 
@@ -73,7 +73,7 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
       />
       <VStack flexGrow="1" gap="5" alignItems="start">
         <BookFavIndicator
-          isBookInMyList={isBookInMyList}
+          isreadList={isreadList}
           readPriority={readPriority}
           onInput={onFavIndicatorInput}
           onFavButtonClick={toogleFromMyList}

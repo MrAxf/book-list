@@ -5,7 +5,7 @@ import SelectInput from "../forms/select-input";
 import { FavButton } from "../fav-button";
 
 interface BookFavIndicator {
-  isBookInMyList: Signal<boolean>;
+  isreadList: Signal<boolean>;
   readPriority: Readonly<Signal<1 | 3 | 2>>;
   onInput: QRL<(el: HTMLSelectElement) => void>;
   onFavButtonClick: QRL<() => void>;
@@ -14,7 +14,7 @@ interface BookFavIndicator {
 
 export const BookFavIndicator = component$(
   ({
-    isBookInMyList,
+    isreadList,
     readPriority,
     onInput,
     onFavButtonClick,
@@ -29,7 +29,7 @@ export const BookFavIndicator = component$(
         alignItems="start"
         style={style}
       >
-        {isBookInMyList.value && (
+        {isreadList.value && (
           <VStack flexGrow="1" alignItems="start">
             <styled.label fontSize="xs">Prioridad de lectura:</styled.label>
             <SelectInput
@@ -54,9 +54,9 @@ export const BookFavIndicator = component$(
         )}
         <FavButton
           onClick={onFavButtonClick}
-          filled={isBookInMyList.value}
+          filled={isreadList.value}
           title={
-            isBookInMyList.value ? "Quitar de mi lista" : "Añadir a mi lista"
+            isreadList.value ? "Quitar de mi lista" : "Añadir a mi lista"
           }
         />
       </HStack>
