@@ -25,12 +25,12 @@ export const BookDeatil = component$(({ book }: BookDeatilProps) => {
       sm: {
         w: "auto",
         h: "33vh",
-        flex: "0 0 auto"
+        flex: "0 0 auto",
       },
       md: {
         w: "auto",
         h: "65vh",
-        flex: "0 0 auto"
+        flex: "0 0 auto",
       },
     })
   );
@@ -40,8 +40,8 @@ export const BookDeatil = component$(({ book }: BookDeatilProps) => {
       alignItems="start"
       w="full"
       flexDir="column"
-      sm ={{
-        flexDir: "row"
+      sm={{
+        flexDir: "row",
       }}
     >
       <Image

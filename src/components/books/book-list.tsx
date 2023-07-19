@@ -20,7 +20,7 @@ const listGridCss = css({
   gap: "5",
   sm: {
     "--ideal-width": "35rem",
-    gap: "10"
+    gap: "10",
   },
 });
 
