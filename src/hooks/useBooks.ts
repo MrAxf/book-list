@@ -4,7 +4,6 @@ import { filterBooks } from "~/services/booksService";
 import type { BooksFilter } from "~/types/books";
 import useReadList from "./useReadList";
 
-
 export default function useBooks(initialFilters: BooksFilter) {
   const { genres } = useContext(BooksContext);
   const booksInMyList = useReadList();

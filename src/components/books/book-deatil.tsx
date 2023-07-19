@@ -7,7 +7,7 @@ import { Image } from "@unpic/qwik";
 import useBook from "~/hooks/useBook";
 
 interface BookDeatilProps {
-    book: Book
+  book: Book;
 }
 
 export const BookDeatil = component$(({ book }: BookDeatilProps) => {

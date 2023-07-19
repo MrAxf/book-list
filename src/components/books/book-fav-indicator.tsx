@@ -9,7 +9,7 @@ interface BookFavIndicator {
   readPriority: Readonly<Signal<1 | 3 | 2>>;
   onInput: QRL<(el: HTMLSelectElement) => void>;
   onFavButtonClick: QRL<() => void>;
-  style?: string | CSSProperties
+  style?: string | CSSProperties;
 }
 
 export const BookFavIndicator = component$(
@@ -18,7 +18,7 @@ export const BookFavIndicator = component$(
     readPriority,
     onInput,
     onFavButtonClick,
-    style
+    style,
   }: BookFavIndicator) => {
     return (
       <HStack
@@ -55,9 +55,7 @@ export const BookFavIndicator = component$(
         <FavButton
           onClick={onFavButtonClick}
           filled={isreadList.value}
-          title={
-            isreadList.value ? "Quitar de mi lista" : "Añadir a mi lista"
-          }
+          title={isreadList.value ? "Quitar de mi lista" : "Añadir a mi lista"}
         />
       </HStack>
     );

@@ -1,4 +1,4 @@
-import { $, component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$ } from "@builder.io/qwik";
 import { Image } from "@unpic/qwik";
 import { HStack, VStack, styled } from "~/styled-system/jsx";
 import cutString from "~/utils/cutString";
@@ -42,12 +42,11 @@ export const BookListItem = component$(({ book }: BookListItemProps) => {
   const { isreadList, toogleFromMyList, readPriority, setReadPriority } =
     useBook(book);
 
-
   const cutStringWithDots = $(cutString);
 
   const onFavIndicatorInput = $((el: HTMLSelectElement) => {
     setReadPriority(Number(el.value) as 1 | 2 | 3);
-  })
+  });
   return (
     <HStack
       gap="5"
